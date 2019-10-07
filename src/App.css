@@ -2,13 +2,10 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: lightslategray;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,6 +14,34 @@
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+
+nav {
+    background-color: #282c34;
+    padding: 2px;
+
+}
+
+nav ul {
+    list-style-type: none;
+    margin-right: 15px;
+}
+
+nav li {
+    display: inline;
+    margin-right: 15px;
+
+}
+
+nav a, nav a:visited {
+    text-decoration: none;
+    font-size: 22px;
+    color: mediumspringgreen
+}
+
+nav a:hover {
+    color: hotpink;
+}
+
+.red {
+    color: red;
 }
