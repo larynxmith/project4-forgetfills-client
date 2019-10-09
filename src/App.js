@@ -5,9 +5,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 
 import './App.css';
-import Content from './content/Content'
-import Header from './nav/Header'
-import Nav from './nav/Nav'
+import Content from './components/Content'
+import Header from './components/nav/Header'
+import Nav from './components/nav/Nav'
 import SERVER_URL from './constants'
 
 class App extends React.Component {

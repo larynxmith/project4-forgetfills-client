@@ -1,5 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import List from './List';
+import NewItem from './NewItem';
 
 
 const Profile = props => {
@@ -9,6 +11,9 @@ const Profile = props => {
     return (
         <div>
             <h2>{props.user.firstname}'s Profile</h2>
+            <hr />
+            <List />
+            <NewItem />
         </div>
     )
 }
