@@ -136,6 +136,7 @@ const List = props => {
         
     return (
         <div>
+            <NewItem getItems={getItems} />
             <div>{results}</div>
             <NewItem getItems={getItems} />
         </div>

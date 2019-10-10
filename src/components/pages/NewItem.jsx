@@ -1,4 +1,7 @@
+import axios from 'axios';
+import BASE_URL from '../../constants';
 import React, { useState } from 'react';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,8 +9,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios';
-import BASE_URL from '../../constants';
+
+import MomentUtils from '@date-io/moment'
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker
+} from '@material-ui/pickers'
 
 
 const NewItem = (props) => {
@@ -16,8 +23,8 @@ const NewItem = (props) => {
 
     const [values, setValues] = React.useState({
         listItem: '',
-        lastChanged: '',
-        nextChanged: '',
+        lastChanged: new Date(),
+        nextChanged: new Date(),
         itemDetails: ''
     });
 
@@ -53,10 +60,17 @@ const NewItem = (props) => {
             })
     }
 
-    const handleChange = name => e => {
-        setValues({ ...values, [name]: e.target.value })
+    const handleChange = (name, e, d) => {
+        console.log(e)
+        console.log(name)
+        console.log(d)
+        if (e.target) {
+            setValues({ ...values, [name]: e.target.value })
+        }
+        else if (name === 'lastChanged' || name === 'nextChanged') {
+            setValues({ ...values, [name]: d })
+        }
     }
-
 
 
 
@@ -75,41 +89,46 @@ const NewItem = (props) => {
                         autoFocus
                         margin="dense"
                         id="listItem"
-                        label="listItem"
+                        label="What Would You Like to Forget?"
                         type="text"
                         fullWidth
                         value={values.listItem}
-                        onChange={handleChange('listItem')}
+                        onChange={e => handleChange('listItem', e)}
                     />
+                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <KeyboardDatePicker
+                            margin="dense"
+                            id="lastChanged"
+                            name='lastChanged'
+                            label="Date Last Changed"
+                            format="MM/DD/YYYY"
+                            value={values.lastChanged}
+                            onChange={(e, x) => handleChange('lastChanged', e, x)}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                        <span>    </span>
+                        <KeyboardDatePicker
+                            margin="dense"
+                            id="nextChanged"
+                            label="Next Change Date"
+                            format="MM/DD/YYYY"
+                            value={values.nextChanged}
+                            onChange={(e, x) => handleChange('nextChanged', e, x)}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
                     <TextField
-                        autoFocus
-                        margin="dense"
-                        id="lastChanged"
-                        label="lastChanged"
-                        type="date"
-                        fullWidth
-                        value={values.lastChanged}
-                        onChange={handleChange('lastChanged')}
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="nextChanged"
-                        label="nextChanged"
-                        type="date"
-                        fullWidth
-                        value={values.nextChanged}
-                        onChange={handleChange('nextChanged')}
-                    />
-                    <TextField
-                        autoFocus
                         margin="dense"
                         id="itemDetails"
-                        label="itemDetails"
+                        label="Got Some Particulars You're Never Gonna Remember Anyway?"
                         type="text"
                         fullWidth
+                        onChange={e => handleChange('itemDetails', e)}
                         value={values.itemDetails}
-                        onChange={handleChange('itemDetails')}
                     />
                 </DialogContent>
                 <DialogActions>
