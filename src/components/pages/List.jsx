@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import BASE_URL from '../../constants';
+import NewItem from './NewItem';
+import Moment from 'react-moment'
 
 
 const List = props => {
@@ -10,11 +12,11 @@ const List = props => {
     let token = localStorage.getItem('mernToken')
 
     useEffect(() => {
-        itemCall()
+        getItems()
     }, [])
 
 
-    const itemCall = async () => {
+    const getItems = async () => {
         await axios.get(`${BASE_URL}/listItems`, {
             headers: { 'Authorization': `Bearer ${token}` }
         })
@@ -30,12 +32,27 @@ const List = props => {
 
 
     }
+    let results = itemsList.map((item, i) => {
+    
+        return (
+            <div key={i}>
+                <h2>Forgetfill: {item.listItem}</h2>
+                <h3>Last Change: <Moment fromNow unit="days">{item.lastChanged}</Moment>
+                    <br /></h3>
+                <h3>Next Change: <Moment fromNow unit="days">{item.nextChanged}</Moment></h3>
+                <p>Details: {item.itemDetails}</p>
+            
+            </div>
+        )
+    })
 
 
     return (
         <div>
             Here will be a list of stuffs
-            <h2>Item: {itemsList.length ? itemsList[1].listItem : 'nothin yet'}</h2>
+            <div>{results}</div>
+            <NewItem getItems={getItems}/>
+
         </div>
     )
 }

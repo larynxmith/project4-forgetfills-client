@@ -46,6 +46,7 @@ const NewItem = (props) => {
             })
             .then(response => {
                 console.log('ITEM ADDED', response)
+                props.getItems()
             })
             .catch(err => {
                 console.log(err);

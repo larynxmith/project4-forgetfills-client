@@ -13,7 +13,6 @@ const Profile = props => {
             <h2>{props.user.firstname}'s Profile</h2>
             <hr />
             <List />
-            <NewItem />
         </div>
     )
 }
