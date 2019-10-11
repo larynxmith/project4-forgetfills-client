@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider'
+import ItemSettings from './ItemSettings';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,9 +32,12 @@ const useStyles = makeStyles(theme => ({
     },
     details: {
         alignItems: 'center',
+        backgroundColor: 'lightblue',
+        color: 'white',
     },
     column: {
         flexBasis: '33.33%',
+        
     },
     helper: {
         borderLeft: `2px solid ${theme.palette.divider}`,
@@ -59,14 +63,14 @@ const ListPopulator = props => {
                     <div key={i}>
                         <div>
                             <div className={classes.root}>
-                                <ExpansionPanel defaultExpanded>
+                                <ExpansionPanel>
                                     <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1c-content"
                                         id="panel1c-header"
                                     >
                                         <div className={classes.column}>
-                                            <Typography className={classes.heading}>Forgetfill: {item.listItem}</Typography>
+                                            <Typography className={classes.heading}>Forget-fill: {item.listItem}</Typography>
                                         </div>
                                         <div className={classes.column}>
                                             <Typography className={classes.secondaryHeading}>Next Change: <Moment fromNow unit="days">{item.nextChanged}</Moment></Typography>
@@ -76,7 +80,7 @@ const ListPopulator = props => {
                                     <ExpansionPanelDetails className={classes.details}>
                                         <div className={classes.column} >Details: {item.itemDetails}</div>
 
-                                        <div className={classes.column}>
+                                        <div className={clsx(classes.column, classes.helper)}>
                                             Last Change: <Moment fromNow unit="days">{item.lastChanged}</Moment>
                                         </div>
                                         <div className={clsx(classes.column, classes.helper)}>
@@ -91,10 +95,11 @@ const ListPopulator = props => {
                                     </ExpansionPanelDetails>
                                     <Divider />
                                     <ExpansionPanelActions>
+                                        <ItemSettings />
                                         <Button size="small">Cancel</Button>
                                         <Button size="small" color="primary">
                                             Save
-                                </Button>
+                                        </Button>
                                     </ExpansionPanelActions>
                                 </ExpansionPanel>
                             </div>
