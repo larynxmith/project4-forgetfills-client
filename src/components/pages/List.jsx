@@ -47,7 +47,7 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: theme.palette.background.paper,
-        width: 500,
+        width: '100vw',
     },
 }));
 
@@ -66,12 +66,15 @@ const List = props => {
     };
     //const classes = useStyles();
     const [itemsList, setItemsList] = React.useState([])
+    const [dueBucket, setDueBucket] = React.useState([])
+    const [soonBucket, setSoonBucket] = React.useState([])
+    const [laterBucket, setLaterBucket] = React.useState([])
+    const [farBucket, setFarBucket] = React.useState([])
 
     let token = localStorage.getItem('mernToken')
 
     useEffect(() => {
         getItems()
-        console.log('itemsList1: ', itemsList)
     }, [])
 
 
@@ -81,7 +84,6 @@ const List = props => {
         })
             .then(res => {
                 let items = []
-                console.log('res: ', res)
                 res.data.forEach(item => {
                     items.push(item)
                 })
@@ -90,26 +92,24 @@ const List = props => {
                 fillBuckets(items)
             })
     }
-    let dueBucket = []
-    let soonBucket = []
-    let laterBucket = []
-    let farBucket = []
     const fillBuckets = items => {
-        dueBucket = items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 <= 0)
-        console.log('die: ', dueBucket)
-        soonBucket = items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 0 && (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 < 7)
+        setDueBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 <= 0))
+        console.log('due: ', dueBucket)
+        setSoonBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 0 && (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 < 7))
         console.log('soon: ', soonBucket)
-        laterBucket = items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 7 && (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 < 30)
+        setLaterBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 7 && (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 < 30))
         console.log('later: ', laterBucket)
-        farBucket = items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 30)
+        setFarBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 30))
         console.log('far: ', farBucket)
-        
+
     }
+
     
-        
-        
+    
     return (
         <div>
+        <NewItem getItems={getItems} />
+        <br />
             <div className={classes.root}>
                 <AppBar position="static" color="default">
                     <Tabs
@@ -123,6 +123,7 @@ const List = props => {
                         <Tab label="DUE!" {...a11yProps(0)} />
                         <Tab label="Due in a Week" {...a11yProps(1)} />
                         <Tab label="Due in 30 Days" {...a11yProps(2)} />
+                        <Tab label="Dude, Fuhgeddaboudit..." {...a11yProps(3)} />
                     </Tabs>
                 </AppBar>
                 <SwipeableViews
@@ -132,22 +133,23 @@ const List = props => {
                 >
                     <TabPanel value={value} index={0} dir={theme.direction}>
                         <ListPopulator items={dueBucket} />
-                        
-        </TabPanel>
+                    </TabPanel>
                     <TabPanel value={value} index={1} dir={theme.direction}>
                         <ListPopulator items={soonBucket} />
-        </TabPanel>
+                    </TabPanel>
                     <TabPanel value={value} index={2} dir={theme.direction}>
                         <ListPopulator items={laterBucket} />
-        </TabPanel>
+                    </TabPanel>
+                    <TabPanel value={value} index={3} dir={theme.direction}>
+                        <ListPopulator items={farBucket} />
+                    </TabPanel>
                 </SwipeableViews>
             </div>
-            <NewItem getItems={getItems} />
-            <ListPopulator items={itemsList} />
+            <br />
             <NewItem getItems={getItems} />
         </div>
     )
 }
-    
+
 
 export default List
