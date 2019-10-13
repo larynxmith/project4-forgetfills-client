@@ -22,12 +22,12 @@ const UpdateItem = (props) => {
     const [open, setOpen] = React.useState(false)
 
     const [values, setValues] = React.useState({
-        listItem: props.listItem,
-        lastChanged: props.lastChanged,
-        nextChanged: props.nextChanged,
-        itemDetails: props.itemDetails
+        listItem: props.item.listItem,
+        lastChanged: props.item.lastChanged,
+        nextChanged: props.item.nextChanged,
+        itemDetails: props.item.itemDetails
     });
-
+    
     function handleClickOpen() {
         setOpen(true)
     }
@@ -41,7 +41,7 @@ const UpdateItem = (props) => {
         setOpen(false)
         let token = localStorage.getItem('mernToken')
         console.log('values: ', values)
-        axios.put(`${BASE_URL}/listItems`,
+        axios.put(`${BASE_URL}/listItems/${props.item._id}`,
             {
                 listItem: values.listItem,
                 lastChanged: values.lastChanged,
@@ -76,9 +76,9 @@ const UpdateItem = (props) => {
 
     return (
         <div>
-            {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Update {props.listItem}
-            </Button> */}
+            </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Update {props.listItem}</DialogTitle>
                 <DialogContent>

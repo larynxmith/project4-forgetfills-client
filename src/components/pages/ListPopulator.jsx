@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider'
 import ItemSettings from './ItemSettings';
+import UpdateItem from './UpdateItem';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -82,6 +83,8 @@ const ListPopulator = props => {
 
                                         <div className={clsx(classes.column, classes.helper)}>
                                             Last Change: <Moment fromNow unit="days">{item.lastChanged}</Moment>
+                                            {item.listItem}
+                                            <UpdateItem item={item} getItems={props.getItems} user={props.user}/>
                                         </div>
                                         <div className={clsx(classes.column, classes.helper)}>
                                             <Typography variant="caption">

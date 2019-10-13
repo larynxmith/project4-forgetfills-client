@@ -11,7 +11,7 @@ const Profile = props => {
         <div>
             <h2>{props.user.firstname}'s Profile</h2>
             <hr />
-            <List />
+            <List user={props.user}/>
         </div>
     )
 }

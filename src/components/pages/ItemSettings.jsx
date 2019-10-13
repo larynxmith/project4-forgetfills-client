@@ -17,21 +17,20 @@ export default function ItemSettings() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [buttonClicked, setButtonClicked] = React.useState(false)
 
     const handleClick = () => {
-        if(options[selectedIndex] === 0) {
-            return<UpdateItem />
-        }
+       setButtonClicked(true)
     };
 
     const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
         setOpen(false);
-    };
+    }
 
     const handleToggle = () => {
         setOpen(prevOpen => !prevOpen);
-    };
+    }
 
     const handleClose = event => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -39,8 +38,19 @@ export default function ItemSettings() {
         }
 
         setOpen(false);
-    };
+    }
+    // if(buttonClicked && selectedIndex === 0){
+    //     console.log('0 IF entered')
+        
+    //         <UpdateItem />
 
+    // }
+    // else if (buttonClicked && selectedIndex === 1) {
+    //     return (
+    //         <UpdateItem />
+    //     )
+    // }
+    // else 
     return (
         <Grid container>
             <Grid item xs={12} align="center">

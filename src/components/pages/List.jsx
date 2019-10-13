@@ -94,13 +94,9 @@ const List = props => {
     }
     const fillBuckets = items => {
         setDueBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 <= 0))
-        console.log('due: ', dueBucket)
         setSoonBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 0 && (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 < 7))
-        console.log('soon: ', soonBucket)
         setLaterBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 7 && (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 < 30))
-        console.log('later: ', laterBucket)
         setFarBucket(items.filter(item => (new Date(item.nextChanged).getTime() - new Date().getTime()) / 8.64e7 > 30))
-        console.log('far: ', farBucket)
 
     }
 
@@ -108,7 +104,7 @@ const List = props => {
     
     return (
         <div>
-        <NewItem getItems={getItems} />
+            <NewItem getItems={getItems} user={props.user}/>
         <br />
             <div className={classes.root}>
                 <AppBar position="static" color="default">
@@ -132,21 +128,21 @@ const List = props => {
                     onChangeIndex={handleChangeIndex}
                 >
                     <TabPanel value={value} index={0} dir={theme.direction}>
-                        <ListPopulator items={dueBucket} />
+                        <ListPopulator items={dueBucket} getItems={getItems} user={props.user}/>
                     </TabPanel>
                     <TabPanel value={value} index={1} dir={theme.direction}>
-                        <ListPopulator items={soonBucket} />
+                        <ListPopulator items={soonBucket} getItems={getItems} user={props.user}/>
                     </TabPanel>
                     <TabPanel value={value} index={2} dir={theme.direction}>
-                        <ListPopulator items={laterBucket} />
+                        <ListPopulator items={laterBucket} getItems={getItems} user={props.user}/>
                     </TabPanel>
                     <TabPanel value={value} index={3} dir={theme.direction}>
-                        <ListPopulator items={farBucket} />
+                        <ListPopulator items={farBucket} getItems={getItems} user={props.user}/>
                     </TabPanel>
                 </SwipeableViews>
             </div>
             <br />
-            <NewItem getItems={getItems} />
+            <NewItem getItems={getItems} user={props.user}/>
         </div>
     )
 }

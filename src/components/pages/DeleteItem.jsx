@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const DeleteUser = (props) => {
+const DeleteItem = (props) => {
 
     const [open, setOpen] = React.useState(false)
     const [redirect, setRedirect] = useState(false);
@@ -32,7 +32,7 @@ const DeleteUser = (props) => {
     const handleDelete = () => {
         let token = localStorage.getItem('authToken')
         console.log(token)
-        axios.delete(`${BASE_URL}/profiles/${props.user._id}`,
+        axios.delete(`${BASE_URL}/listItems/${props.item._id}`,
             {
                 headers: { 'Authorization': `Bearer ${token}` }
             }
@@ -47,7 +47,7 @@ const DeleteUser = (props) => {
                 console.log(err)
             })
         handleClose()
-        console.log('USER DELETED')
+        console.log('ITEM DELETED')
     }
 
     if (redirect === true) {
@@ -58,7 +58,7 @@ const DeleteUser = (props) => {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Delete User
+                    Delete Item
                 </Button>
                 <Dialog
                     open={open}
@@ -69,7 +69,7 @@ const DeleteUser = (props) => {
                     <DialogTitle id="alert-dialog-title">{"YOU HAVE ELECTED TO BE REMOVED FROM OUR SYSTEMS!!!"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Are you Really, REALLY Sure You Want to Delete Your Account...?
+                            Are you Really, REALLY Sure You Want to Delete This ...?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -86,4 +86,4 @@ const DeleteUser = (props) => {
     }
 }
 
-export default DeleteUser
+export default DeleteItem

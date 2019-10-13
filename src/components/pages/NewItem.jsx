@@ -25,7 +25,8 @@ const NewItem = (props) => {
         listItem: '',
         lastChanged: new Date(),
         nextChanged: new Date(),
-        itemDetails: ''
+        itemDetails: '',
+        userId: props.user._id
     });
 
     function handleClickOpen() {
@@ -46,7 +47,8 @@ const NewItem = (props) => {
                 listItem: values.listItem,
                 lastChanged: values.lastChanged,
                 nextChanged: values.nextChanged,
-                itemDetails: values.itemDetails
+                itemDetails: values.itemDetails,
+                userId: values.userId
             },
             {
                 headers: { 'Authorization': `Bearer ${token}` }
