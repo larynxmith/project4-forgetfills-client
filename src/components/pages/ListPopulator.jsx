@@ -102,10 +102,10 @@ const ListPopulator = props => {
                                     <Divider />
                                     <ExpansionPanelActions>
                                         <ItemSettings />
-                                        <Button size="small">Cancel</Button>
+                                        {/* <Button size="small">Cancel</Button>
                                         <Button size="small" color="primary">
                                             Save
-                                        </Button>
+                                        </Button> */}
                                     </ExpansionPanelActions>
                                 </ExpansionPanel>
                             </div>
