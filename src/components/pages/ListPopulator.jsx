@@ -9,11 +9,11 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider'
 import ItemSettings from './ItemSettings';
 import UpdateItem from './UpdateItem';
+import DeleteItem from './DeleteItem';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
     column: {
         flexBasis: '33.33%',
-        
+
     },
     helper: {
         borderLeft: `2px solid ${theme.palette.divider}`,
@@ -79,20 +79,23 @@ const ListPopulator = props => {
                                     </ExpansionPanelSummary>
 
                                     <ExpansionPanelDetails className={classes.details}>
-                                        <div className={classes.column} >Details: {item.itemDetails}</div>
+                                        <div className={classes.column} >
+                                            Details: {item.itemDetails}
+                                            <DeleteItem item={item} getItems={props.getItems} user={props.user} />
+                                        </div>
 
                                         <div className={clsx(classes.column, classes.helper)}>
                                             Last Change: <Moment fromNow unit="days">{item.lastChanged}</Moment>
                                             {item.listItem}
-                                            <UpdateItem item={item} getItems={props.getItems} user={props.user}/>
+                                            <UpdateItem item={item} getItems={props.getItems} user={props.user} />
                                         </div>
                                         <div className={clsx(classes.column, classes.helper)}>
                                             <Typography variant="caption">
                                                 Need to Order?
-                                        <br />
-                                                <a href="#sub-labels-and-columns" className={classes.link}>
-                                                    Learn more
-                                        </a>
+                                                <br />
+                                                <a href={"https://www.amazon.com/s?k=" + item.listItem} className={classes.link}>
+                                                    Check it out on Amazon
+                                                </a>
                                             </Typography>
                                         </div>
                                     </ExpansionPanelDetails>

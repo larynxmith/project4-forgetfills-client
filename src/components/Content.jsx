@@ -16,7 +16,7 @@ const Content = props => {
 
             <Route exact path="/" component={Home} />
             <Route path="/profile" render={
-                () => <Profile user={props.user} />
+                () => <Profile user={props.user} updateUser={props.updateUser}/>
 
             } />
             <Route path="/login" render={

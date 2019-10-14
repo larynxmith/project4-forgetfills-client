@@ -71,12 +71,12 @@ export default function ItemSettings() {
                         <Grow
                             {...TransitionProps}
                             style={{
-                                transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                                transformOrigin: placement === 'bottom' ? 'center top' : 'center top',
                             }}
                         >
                             <Paper id="menu-list-grow">
                                 <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList>
+                                    <MenuList zindex="1500">
                                         {options.map((option, index) => (
                                             <MenuItem
                                                 

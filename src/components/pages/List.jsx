@@ -116,10 +116,10 @@ const List = props => {
                         variant="fullWidth"
                         aria-label="full width tabs example"
                     >
-                        <Tab label="DUE!" {...a11yProps(0)} />
-                        <Tab label="Due in a Week" {...a11yProps(1)} />
-                        <Tab label="Due in 30 Days" {...a11yProps(2)} />
-                        <Tab label="Dude, Fuhgeddaboudit..." {...a11yProps(3)} />
+                        <Tab label={`ALREADY DUE!(${dueBucket.length})`} {...a11yProps(0)} />
+                        <Tab label={`Due within in the Week(${soonBucket.length})`} {...a11yProps(1)} />
+                        <Tab label={`Due within 30 Days(${laterBucket.length})`} {...a11yProps(2)} />
+                        <Tab label={`Dude, Fuhgeddaboudit...(${farBucket.length})`} {...a11yProps(3)} />
                     </Tabs>
                 </AppBar>
                 <SwipeableViews

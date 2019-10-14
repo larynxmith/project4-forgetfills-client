@@ -9,6 +9,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CreateIcon from '@material-ui/icons/Create'
+
 
 import MomentUtils from '@date-io/moment'
 import {
@@ -52,7 +54,7 @@ const UpdateItem = (props) => {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
             .then(response => {
-                console.log('ITEM UPDTAED', response)
+                console.log('ITEM UPDATED', response)
                 props.getItems()
             })
             .catch(err => {
@@ -76,8 +78,8 @@ const UpdateItem = (props) => {
 
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Update {props.listItem}
+            <Button color="primary" onClick={handleClickOpen}>
+                <CreateIcon />
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Update {props.listItem}</DialogTitle>

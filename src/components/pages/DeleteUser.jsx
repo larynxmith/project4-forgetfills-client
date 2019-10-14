@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
 
-const DeleteItem = (props) => {
+const DeleteUser = (props) => {
 
     const [open, setOpen] = React.useState(false)
     const [redirect, setRedirect] = useState(false);
@@ -33,7 +33,7 @@ const DeleteItem = (props) => {
     const handleDelete = () => {
         let token = localStorage.getItem('mernToken')
         console.log(token)
-        axios.delete(`${BASE_URL}/listItems/${props.item._id}`,
+        axios.delete(`${BASE_URL}/profiles/${props.user._id}`,
             {
                 headers: { 'Authorization': `Bearer ${token}` }
             }
@@ -41,12 +41,14 @@ const DeleteItem = (props) => {
 
             .then(response => {
                 console.log(response)
+                localStorage.removeItem('mernToken')
+                props.updateUser()
             })
             .catch(err => {
                 console.log(err)
             })
         handleClose()
-        console.log('ITEM DELETED')
+        console.log('USER DELETED')
     }
 
     if (redirect === true) {
@@ -65,18 +67,18 @@ const DeleteItem = (props) => {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{"Have You Finally Remembered?"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{"YOU HAVE ELECTED TO BE REMOVED FROM OUR SYSTEMS!!!"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Are you Really, REALLY Sure You Want to Delete This ...?
+                            Are you Really, REALLY Sure You Want to Delete Your Account...?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleCancel} color="primary">
-                            No, I'd Like to Keep Forgetting
+                            No, I've Changed My Mind
                         </Button>
                         <Button onClick={handleDelete} color="primary" autoFocus>
-                            Yes, Please Remove This Forget-fill
+                            Yes, Please Delete My Account
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -85,4 +87,4 @@ const DeleteItem = (props) => {
     }
 }
 
-export default DeleteItem
+export default DeleteUser
