@@ -1,28 +1,38 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-class Nav extends Component {
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-    handleLogout = (e) => {
+const useStyles = makeStyles(theme => ({
+    link: {
+        margin: theme.spacing(1),
+    },
+}));
+
+const Nav = props => {
+    const classes = useStyles();
+
+    const handleLogout = (e) => {
         e.preventDefault()
         // remove token from localStorage (or cookies)
         localStorage.removeItem('mernToken')
         // update the state of he App
-        this.props.updateUser()
+        props.updateUser()
     }
 
-    render() {
+
         let links = ''
 
-        // if the use is logged in, show profile page and logout links
-        if (this.props.user) {
+        // if the user is logged in, show profile page and logout links
+        if (props.user) {
             links = (
                 <span>
                     <li>
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
-                        <a href="/" onClick={this.handleLogout}>Logout</a>
+                        <a href="/" onClick={handleLogout}>Logout</a>
                     </li>
                 </span>
             )
@@ -53,7 +63,7 @@ class Nav extends Component {
                 </ul>
             </nav>
         )
-    }
+    
 }
 
 export default Nav
