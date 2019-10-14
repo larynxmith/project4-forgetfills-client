@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import './App.css';
 import Content from './components/Content'
-import Header from './components/nav/Header'
 import Nav from './components/nav/Nav'
 import SERVER_URL from './constants'
 
@@ -53,7 +52,7 @@ class App extends React.Component {
             <Router>
                 <div className="App">
                     <Nav updateUser={this.getUser} user={this.state.user} />
-                    <Header />
+                   
                     <Content updateUser={this.getUser} user={this.state.user} />
                 </div>
             </Router>

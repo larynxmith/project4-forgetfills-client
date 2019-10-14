@@ -1,9 +1,13 @@
 import React from 'react'
+import Header from '../nav/Header';
 
 const Home = props => {
     return (
         <div>
-            <h2>HOME</h2>
+            <Header />
+            <div>
+                <h2>Something extremely interesting and awesome about my project</h2>
+            </div>
         </div>
     )
 }
